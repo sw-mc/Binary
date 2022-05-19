@@ -1,14 +1,40 @@
-﻿namespace SkyNet.Binary;
+﻿using System.Text;
+
+namespace SkyNet.Binary;
 
 public class BinaryStream{
-	private readonly Stream _buffer;
+	
+	private readonly MemoryStream _buffer;
 	private readonly BinaryWriter _writer;
 	private readonly BinaryReader _reader;
 	
-	public BinaryStream() {
-		_buffer = new MemoryStream();
+	public BinaryStream(byte[]? buffer = null) {
+		_buffer = buffer != null ? new MemoryStream(buffer) : new MemoryStream();
 		_writer = new BinaryWriter(_buffer);
 		_reader = new BinaryReader(_buffer);
+	}
+	
+	public MemoryStream GetBuffer() {
+		return _buffer;
+	}
+	
+	public string Encode(EncodeTypes type = EncodeTypes.Utf8) {
+		switch (type) {
+			case EncodeTypes.Utf8:
+				return Encoding.UTF8.GetString(_buffer.ToArray());
+			case EncodeTypes.Utf32:
+				return Encoding.UTF32.GetString(_buffer.ToArray());
+			case EncodeTypes.Unicode:
+				return Encoding.Unicode.GetString(_buffer.ToArray());
+			case EncodeTypes.BigEndianUnicode:
+				return Encoding.BigEndianUnicode.GetString(_buffer.ToArray());
+			case EncodeTypes.AscII:
+				return Encoding.ASCII.GetString(_buffer.ToArray());
+			case EncodeTypes.Latin1:
+				return Encoding.Latin1.GetString(_buffer.ToArray());
+			default:
+				return Encoding.Default.GetString(_buffer.ToArray());
+		}
 	}
 	
 	public void WriteByte(byte value) {
@@ -113,5 +139,15 @@ public class BinaryStream{
 	
 	public string ReadString() {
 		return _reader.ReadString();
+	}
+
+	public enum EncodeTypes {
+		Utf8,
+		Utf32,
+		Unicode,
+		BigEndianUnicode,
+		AscII,
+		Latin1,
+		Default
 	}
 }
