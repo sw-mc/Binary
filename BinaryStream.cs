@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace SkyNet.Binary;
+namespace SkyWing.Binary;
 
 public class BinaryStream{
 	

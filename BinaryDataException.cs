@@ -1,4 +1,4 @@
-﻿namespace SkyNet.Binary;
+﻿namespace SkyWing.Binary;
 
 public class BinaryDataException : Exception{
 	
