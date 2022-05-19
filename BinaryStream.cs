@@ -19,22 +19,15 @@ public class BinaryStream{
 	}
 	
 	public string Encode(EncodeTypes type = EncodeTypes.Utf8) {
-		switch (type) {
-			case EncodeTypes.Utf8:
-				return Encoding.UTF8.GetString(_buffer.ToArray());
-			case EncodeTypes.Utf32:
-				return Encoding.UTF32.GetString(_buffer.ToArray());
-			case EncodeTypes.Unicode:
-				return Encoding.Unicode.GetString(_buffer.ToArray());
-			case EncodeTypes.BigEndianUnicode:
-				return Encoding.BigEndianUnicode.GetString(_buffer.ToArray());
-			case EncodeTypes.AscII:
-				return Encoding.ASCII.GetString(_buffer.ToArray());
-			case EncodeTypes.Latin1:
-				return Encoding.Latin1.GetString(_buffer.ToArray());
-			default:
-				return Encoding.Default.GetString(_buffer.ToArray());
-		}
+		return type switch {
+			EncodeTypes.Utf8 => Encoding.UTF8.GetString(_buffer.ToArray()),
+			EncodeTypes.Utf32 => Encoding.UTF32.GetString(_buffer.ToArray()),
+			EncodeTypes.Unicode => Encoding.Unicode.GetString(_buffer.ToArray()),
+			EncodeTypes.BigEndianUnicode => Encoding.BigEndianUnicode.GetString(_buffer.ToArray()),
+			EncodeTypes.AscII => Encoding.ASCII.GetString(_buffer.ToArray()),
+			EncodeTypes.Latin1 => Encoding.Latin1.GetString(_buffer.ToArray()),
+			_ => Encoding.Default.GetString(_buffer.ToArray())
+		};
 	}
 	
 	public void WriteByte(byte value) {
