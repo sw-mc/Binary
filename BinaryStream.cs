@@ -15,19 +15,39 @@ public class BinaryStream {
 		Writer = new BinaryWriter(stream);
 	}
 
-	public sbyte ReadByte() {
-		return Reader.ReadSByte();
+	#region Signing and Unsigning
+
+	public static sbyte SignByte(byte value) {
+		return (sbyte) (value << 56 >> 56);
 	}
 	
-	public byte ReadUnsignedByte() {
+	public static byte UnSignByte(sbyte value) {
+		return (byte) (value & 0xff);
+	}
+	
+	public static short SignShort(ushort value) {
+		return (short) (value << 48 >> 48);
+	}
+	
+	public static ushort UnSignShort(short value) {
+		return (ushort) (value & 0xffff);
+	}
+	
+	public static int SignInt(uint value) {
+		return (int) (value << 32 >> 32);
+	}
+	
+	public static uint UnSignInt(int value) {
+		return (uint) (value & 0xffffffff);
+	}
+
+	#endregion
+
+	public byte ReadByte() {
 		return Reader.ReadByte();
 	}
-	
-	public void WriteByte(sbyte value) {
-		Writer.Write(value);
-	}
-	
-	public void WriteUnsignedByte(byte value) {
+
+	public void WriteByte(byte value) {
 		Writer.Write(value);
 	}
 
@@ -53,8 +73,8 @@ public class BinaryStream {
 	}
 	
 	// Reads a unsigned int16 from 2 bytes of big endian
-	public ushort ReadUnsignedShort() {
-		return BinaryPrimitives.ReadUInt16BigEndian(ReadBytes(2));
+	public short ReadSignedShort() {
+		return SignShort(BinaryPrimitives.ReadUInt16BigEndian(ReadBytes(2)));
 	}
 	
 	public void WriteShort(short value) {
@@ -62,21 +82,15 @@ public class BinaryStream {
 		BinaryPrimitives.WriteInt16BigEndian(bytes, value);
 		WriteBytes(bytes.ToArray());
 	}
-	
-	public void WriteUnsignedShort(ushort value) {
-		var bytes = new Span<byte>();
-		BinaryPrimitives.WriteUInt16BigEndian(bytes, value);
-		WriteBytes(bytes.ToArray());
-	}
-	
+
 	// Reads a signed int16 from 2 bytes of little endian
 	public short ReadLShort() {
 		return BinaryPrimitives.ReadInt16LittleEndian(ReadBytes(2));
 	}
 	
 	// Reads a unsigned int16 from 2 bytes of little endian
-	public ushort ReadUnsignedLShort() {
-		return BinaryPrimitives.ReadUInt16LittleEndian(ReadBytes(2));
+	public short ReadSignedLShort() {
+		return SignShort(BinaryPrimitives.ReadUInt16LittleEndian(ReadBytes(2)));
 	}
 	
 	public void WriteLShort(short value) {
@@ -84,13 +98,7 @@ public class BinaryStream {
 		BinaryPrimitives.WriteInt16LittleEndian(bytes, value);
 		WriteBytes(bytes.ToArray());
 	}
-	
-	public void WriteUnsignedLShort(ushort value) {
-		var bytes = new Span<byte>();
-		BinaryPrimitives.WriteUInt16LittleEndian(bytes, value);
-		WriteBytes(bytes.ToArray());
-	}
-	
+
 	public Int24 ReadInt24() {
 		return new Int24(ReadBytes(3).Reverse().ToArray());
 	}
@@ -111,90 +119,46 @@ public class BinaryStream {
 	public int ReadInt() {
 		return BinaryPrimitives.ReadInt32BigEndian(ReadBytes(4));
 	}
-	
-	// Reads a unsigned int32 from 4 bytes of big endian
-	public uint ReadUnsignedInt() {
-		return BinaryPrimitives.ReadUInt32BigEndian(ReadBytes(4));
-	}
-	
+
 	public void WriteInt(int value) {
 		var bytes = new Span<byte>();
 		BinaryPrimitives.WriteInt32BigEndian(bytes, value);
 		WriteBytes(bytes.ToArray());
 	}
-	
-	public void WriteUnsignedInt(uint value) {
-		var bytes = new Span<byte>();
-		BinaryPrimitives.WriteUInt32BigEndian(bytes, value);
-		WriteBytes(bytes.ToArray());
-	}
-	
+
 	// Reads a signed int32 from 4 bytes of little endian
 	public int ReadLInt() {
 		return BinaryPrimitives.ReadInt32LittleEndian(ReadBytes(4));
 	}
-	
-	// Reads a unsigned int32 from 4 bytes of little endian
-	public uint ReadUnsignedLInt() {
-		return BinaryPrimitives.ReadUInt32LittleEndian(ReadBytes(4));
-	}
-	
+
 	public void WriteLInt(int value) {
 		var bytes = new Span<byte>();
 		BinaryPrimitives.WriteInt32LittleEndian(bytes, value);
 		WriteBytes(bytes.ToArray());
 	}
-	
-	public void WriteUnsignedLInt(uint value) {
-		var bytes = new Span<byte>();
-		BinaryPrimitives.WriteUInt32LittleEndian(bytes, value);
-		WriteBytes(bytes.ToArray());
-	}
-	
+
 	// Reads a signed long from 8 bytes of big endian
 	public long ReadLong() {
 		return BinaryPrimitives.ReadInt64BigEndian(ReadBytes(8));
 	}
-	
-	// Reads a unsigned long from 8 bytes of big endian
-	public ulong ReadUnsignedLong() {
-		return BinaryPrimitives.ReadUInt64BigEndian(ReadBytes(8));
-	}
-	
+
 	public void WriteLong(long value) {
 		var bytes = new Span<byte>();
 		BinaryPrimitives.WriteInt64BigEndian(bytes, value);
 		WriteBytes(bytes.ToArray());
 	}
-	
-	public void WriteUnsignedLong(ulong value) {
-		var bytes = new Span<byte>();
-		BinaryPrimitives.WriteUInt64BigEndian(bytes, value);
-		WriteBytes(bytes.ToArray());
-	}
-	
+
 	// Reads a signed long from 8 bytes of little endian
 	public long ReadLLong() {
 		return BinaryPrimitives.ReadInt64LittleEndian(ReadBytes(8));
 	}
-	
-	// Reads a unsigned long from 8 bytes of little endian
-	public ulong ReadUnsignedLLong() {
-		return BinaryPrimitives.ReadUInt64LittleEndian(ReadBytes(8));
-	}
-	
+
 	public void WriteLLong(long value) {
 		var bytes = new Span<byte>();
 		BinaryPrimitives.WriteInt64LittleEndian(bytes, value);
 		WriteBytes(bytes.ToArray());
 	}
-	
-	public void WriteUnsignedLLong(ulong value) {
-		var bytes = new Span<byte>();
-		BinaryPrimitives.WriteUInt64LittleEndian(bytes, value);
-		WriteBytes(bytes.ToArray());
-	}
-	
+
 	// Reads a float from 4 bytes of big endian
 	public float ReadFloat() {
 		return BinaryPrimitives.ReadSingleBigEndian(ReadBytes(4));
