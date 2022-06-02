@@ -4,12 +4,12 @@ namespace SkyWing.Binary;
 
 public class BinaryStream {
 
-	public Stream Buffer;
+	public MemoryStream Buffer;
 	
 	public BinaryReader Reader { get; }
 	public BinaryWriter Writer { get; }
 
-	public BinaryStream(Stream stream) {
+	public BinaryStream(MemoryStream stream) {
 		Buffer = stream;
 		Reader = new BinaryReader(stream);
 		Writer = new BinaryWriter(stream);
@@ -43,6 +43,21 @@ public class BinaryStream {
 
 	#endregion
 
+	#region Buffer Pointer
+	
+	public long Position {
+		get => Buffer.Position;
+		set => Buffer.Position = value;
+	}
+	
+	public long Length => Buffer.Length;
+	
+	public void Rewind() {
+		Buffer.Position = 0;
+	}
+	
+	#endregion
+
 	public byte ReadByte() {
 		return Reader.ReadByte();
 	}
@@ -53,6 +68,14 @@ public class BinaryStream {
 
 	public byte[] ReadBytes(int count) {
 		return Reader.ReadBytes(count);
+	}
+	
+	public byte[] GetRemainingBytes() {
+		return Reader.ReadBytes((int) (Length - Position));
+	}
+
+	public byte[] GetBuffer() {
+		return Buffer.GetBuffer();
 	}
 	
 	public void WriteBytes(byte[] value) {
@@ -251,6 +274,10 @@ public class BinaryStream {
 	// Writes a 64-bit variable-length unsigned integer.
 	public void WriteUnsignedVarLong(ulong value) {
 		VarInt.WriteUInt64(Writer, value);
+	}
+
+	public bool Feof() {
+		return Buffer.Position >= Buffer.Length;
 	}
 }
 
