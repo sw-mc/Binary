@@ -9,6 +9,24 @@ public class BinaryStream {
 	public BinaryReader Reader { get; }
 	public BinaryWriter Writer { get; }
 
+	public BinaryStream() {
+		Buffer = new MemoryStream();
+		Reader = new BinaryReader(Buffer);
+		Writer = new BinaryWriter(Buffer);
+	}
+	
+	public BinaryStream(byte[] buffer) {
+		Buffer = new MemoryStream(buffer);
+		Reader = new BinaryReader(Buffer);
+		Writer = new BinaryWriter(Buffer);
+	}
+	
+	public BinaryStream(int size) {
+		Buffer = new MemoryStream(size);
+		Reader = new BinaryReader(Buffer);
+		Writer = new BinaryWriter(Buffer);
+	}
+
 	public BinaryStream(MemoryStream stream) {
 		Buffer = stream;
 		Reader = new BinaryReader(stream);
