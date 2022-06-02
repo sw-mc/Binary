@@ -325,7 +325,7 @@ public struct Int24 : IComparable // later , IConvertible
 	}
 
 	public static byte[] FromInt(int value) {
-		byte[] buffer = new byte[3];
+		var buffer = new byte[3];
 		buffer[0] = (byte) value;
 		buffer[1] = (byte) (value >> 8);
 		buffer[2] = (byte) (value >> 16);
@@ -333,7 +333,7 @@ public struct Int24 : IComparable // later , IConvertible
 	}
 
 	public static byte[] FromInt24(Int24 value) {
-		byte[] buffer = new byte[3];
+		var buffer = new byte[3];
 		buffer[0] = (byte) value.IntValue();
 		buffer[1] = (byte) (value.IntValue() >> 8);
 		buffer[2] = (byte) (value.IntValue() >> 16);
@@ -385,7 +385,7 @@ public static class VarInt {
 
 	private static uint ReadRawVarInt32(BinaryReader buf, int maxSize) {
 		uint result = 0;
-		int j = 0;
+		var j = 0;
 		int b0;
 
 		do {
@@ -400,7 +400,7 @@ public static class VarInt {
 
 	private static ulong ReadRawVarInt64(BinaryReader buf, int maxSize) {
 		ulong result = 0;
-		int j = 0;
+		var j = 0;
 		int b0;
 
 		do {
