@@ -5,6 +5,17 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageId>SkyWing.Binary</PackageId>
+        <PackageVersion>1.0.0-dev</PackageVersion>
+        <Title>BinaryUtils</Title>
+        <Authors>Cosmic5173</Authors>
+        <Description>Utility library written in C# to read and write binary streams.</Description>
+        <Copyright>Copyright 2022 SkyWing</Copyright>
+        <PackageLicenseUrl>https://mit-license.org/</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/sw-mc/Binary</RepositoryUrl>
+        <RepositoryType>library</RepositoryType>
+        <PackageTags>Binary, IO, Serialization</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>
