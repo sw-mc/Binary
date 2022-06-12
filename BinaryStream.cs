@@ -119,7 +119,7 @@ public class BinaryStream {
 	}
 	
 	public void WriteShort(short value) {
-		var bytes = new Span<byte>();
+		var bytes = new Span<byte>(new byte[2]);
 		BinaryPrimitives.WriteInt16BigEndian(bytes, value);
 		WriteBytes(bytes.ToArray());
 	}
@@ -135,7 +135,7 @@ public class BinaryStream {
 	}
 	
 	public void WriteLShort(short value) {
-		var bytes = new Span<byte>();
+		var bytes = new Span<byte>(new byte[2]);
 		BinaryPrimitives.WriteInt16LittleEndian(bytes, value);
 		WriteBytes(bytes.ToArray());
 	}
@@ -162,7 +162,7 @@ public class BinaryStream {
 	}
 
 	public void WriteInt(int value) {
-		var bytes = new Span<byte>();
+		var bytes = new Span<byte>(new byte[4]);
 		BinaryPrimitives.WriteInt32BigEndian(bytes, value);
 		WriteBytes(bytes.ToArray());
 	}
@@ -173,7 +173,7 @@ public class BinaryStream {
 	}
 
 	public void WriteLInt(int value) {
-		var bytes = new Span<byte>();
+		var bytes = new Span<byte>(new byte[4]);
 		BinaryPrimitives.WriteInt32LittleEndian(bytes, value);
 		WriteBytes(bytes.ToArray());
 	}
@@ -184,7 +184,7 @@ public class BinaryStream {
 	}
 
 	public void WriteLong(long value) {
-		var bytes = new Span<byte>();
+		var bytes = new Span<byte>(new byte[8]);
 		BinaryPrimitives.WriteInt64BigEndian(bytes, value);
 		WriteBytes(bytes.ToArray());
 	}
@@ -195,7 +195,7 @@ public class BinaryStream {
 	}
 
 	public void WriteLLong(long value) {
-		var bytes = new Span<byte>();
+		var bytes = new Span<byte>(new byte[8]);
 		BinaryPrimitives.WriteInt64LittleEndian(bytes, value);
 		WriteBytes(bytes.ToArray());
 	}
@@ -221,13 +221,13 @@ public class BinaryStream {
 	}
 	
 	public void WriteFloat(float value) {
-		var bytes = new Span<byte>();
+		var bytes = new Span<byte>(new byte[4]);
 		BinaryPrimitives.WriteSingleBigEndian(bytes, value);
 		WriteBytes(bytes.ToArray());
 	}
 	
 	public void WriteLFloat(float value) {
-		var bytes = new Span<byte>();
+		var bytes = new Span<byte>(new byte[4]);
 		BinaryPrimitives.WriteSingleLittleEndian(bytes, value);
 		WriteBytes(bytes.ToArray());
 	}
@@ -243,13 +243,13 @@ public class BinaryStream {
 	}
 	
 	public void WriteDouble(double value) {
-		var bytes = new Span<byte>();
+		var bytes = new Span<byte>(new byte[8]);
 		BinaryPrimitives.WriteDoubleBigEndian(bytes, value);
 		WriteBytes(bytes.ToArray());
 	}
 	
 	public void WriteLDouble(double value) {
-		var bytes = new Span<byte>();
+		var bytes = new Span<byte>(new byte[8]);
 		BinaryPrimitives.WriteDoubleLittleEndian(bytes, value);
 		WriteBytes(bytes.ToArray());
 	}
