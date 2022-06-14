@@ -7,7 +7,7 @@
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageId>SkyWing.Binary</PackageId>
-        <PackageVersion>1.0.1-dev</PackageVersion>
+        <PackageVersion>1.0.2-dev</PackageVersion>
         <Title>BinaryUtils</Title>
         <Authors>Cosmic5173</Authors>
         <Description>Utility library written in C# to read and write binary streams.</Description>
