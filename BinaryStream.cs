@@ -84,6 +84,10 @@ public class BinaryStream {
 		Writer.Write(value);
 	}
 
+    public void WriteByte(sbyte value) {
+        Writer.Write(value);
+    }
+
 	public byte[] ReadBytes(int count) {
 		return Reader.ReadBytes(count);
 	}
@@ -124,6 +128,10 @@ public class BinaryStream {
 		WriteBytes(bytes.ToArray());
 	}
 
+    public void WriteShort(ushort value) {
+        WriteShort((short) value);
+    }
+
 	// Reads a signed int16 from 2 bytes of little endian
 	public short ReadLShort() {
 		return BinaryPrimitives.ReadInt16LittleEndian(ReadBytes(2));
@@ -139,6 +147,10 @@ public class BinaryStream {
 		BinaryPrimitives.WriteInt16LittleEndian(bytes, value);
 		WriteBytes(bytes.ToArray());
 	}
+
+    public void WriteLShort(ushort value) {
+        WriteLShort((short) value);
+    }
 
 	public Int24 ReadInt24() {
 		return new Int24(ReadBytes(3).Reverse().ToArray());
@@ -167,6 +179,10 @@ public class BinaryStream {
 		WriteBytes(bytes.ToArray());
 	}
 
+    public void WriteInt(uint value) {
+        WriteInt((int) value);
+    }
+
 	// Reads a signed int32 from 4 bytes of little endian
 	public int ReadLInt() {
 		return BinaryPrimitives.ReadInt32LittleEndian(ReadBytes(4));
@@ -177,6 +193,10 @@ public class BinaryStream {
 		BinaryPrimitives.WriteInt32LittleEndian(bytes, value);
 		WriteBytes(bytes.ToArray());
 	}
+
+    public void WriteLInt(uint value) {
+        WriteLInt((int) value);
+    }
 
 	// Reads a signed long from 8 bytes of big endian
 	public long ReadLong() {
